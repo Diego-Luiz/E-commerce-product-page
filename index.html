@@ -1,44 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="author" content="Diego Luiz">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
   <title>Frontend Mentor | E-commerce product page</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
+  <header class="top-header">
+    <div class="top-header__left">
+      <button class="nav-btn">
+        <span class="sr-only">Menu</span>
+        <img src="images/icon-menu.svg" alt="">
+      </button>
+      <h1 class="logo">
+        <a href="#" class="invisible">sneakers</a>
+      </h1>
+      <nav class="main-nav">
+        <div class="main-nav__content-container">
+          <button class="main-nav__close-btn">
+            <span class="sr-only">Close menu</span>
+            <img src="images/icon-close.svg" alt="">
+          </button>
+          <ul class="main-nav__links">
+            <li>
+              <a href="#" class="link-item">Collections</a>
+            </li>
+            <li>
+              <a href="#" class="link-item">Men</a>
+            </li>
+            <li>
+              <a href="#" class="link-item">Women</a>
+            </li>
+            <li>
+              <a href="#" class="link-item">About</a>
+            </li>
+            <li>
+              <a href="#" class="link-item">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="top-header__right">
+      <button class="top-header__cart">
+        <span class="sr-only">Cart</span>
+        <img src="images/icon-cart.svg" alt="">
+      </button>
+      <button class="user-container">
+        <img src="images/image-avatar.png" alt="User" class="user-container__img">
+      </button>
+    </div>
+   
+  </header>
 
-  Collections
-  Men
-  Women
-  About
-  Contact
+  <main>
+    Sneaker Company
 
-  Sneaker Company
-
-  Fall Limited Edition Sneakers
-
-  These low-profile sneakers are your perfect casual wear companion. Featuring a 
-  durable rubber outer sole, they’ll withstand everything the weather can offer.
-
-  $125.00
-  50%
-  $250.00
-
-  0
-  Add to cart
+    Fall Limited Edition Sneakers
   
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+    These low-profile sneakers are your perfect casual wear companion. Featuring a 
+    durable rubber outer sole, they’ll withstand everything the weather can offer.
+    
+    
+    $125.00
+    50%
+    $250.00
+
+    0
+    Add to cart
+  </main>
+  
+  
 </body>
 </html>

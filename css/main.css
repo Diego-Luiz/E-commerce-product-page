@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
+:root{
+    --orange-clr: hsl(26, 100%, 55%);
+    --pale-orange-clr: hsl(25, 100%, 94%);
+    --very-dark-blue-clr: hsl(220, 13%, 13%);
+    --dark-grayish-blue-clr: hsl(219, 9%, 45%);
+    --grayish-blue-clr: hsl(220, 14%, 75%);
+    --light-grayish-blue-clr: hsl(223, 64%, 98%);
+    --white-clr: hsl(0, 0%, 100%);
+    --opacity-black-clr: 0%;
+    --black-clr: hsl(0, 0%, var(--opacity-black-clr));
+}
+body{
+    font-family: 'Kumbh Sans', sans-serif;
+}
+button{ cursor: pointer; }
+h1,h2,h3, p, ul{ 
+    margin: 0;
+    padding: 0;
+}
+img{ 
+    max-width: 100%; 
+}
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.top-header{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .8em .75em;
+}
+.top-header__left,
+.top-header__right{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    position: relative;
+    display: inline-block;
+    padding: .1em;
+    background: url(../images/logo.svg) no-repeat;
+    background-position: left 35%;
+}
+.logo .invisible{ opacity: 0;}
+.nav-btn{ 
+    position: relative;
+    margin-right: .75em;
+}
+.top-header__cart{ 
+    position: relative; 
+    margin-right: .5em;
+}
+.user-container img{
+    width: 30px;
+}
+.nav-btn,
+.user-container,
+.top-header__cart,
+.main-nav__close-btn{
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.main-nav{
+    position: absolute;
+    top: -30%;
+    left: -7%;
+    z-index: 1;
+    display: none;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0,0,0,.7);
+}
+.main-nav__content-container{
+    width: 70%;
+    height: 100vh;
+    background: var(--white-clr);
+}
+.main-nav__close-btn{
+    padding: .8em;
+}
+.main-nav__links{
+    margin-top: 2em;
+    list-style: none;
+}
+.link-item{
+    display: inline-block;
+    padding: .5em .8em;
+    text-decoration: none;
+    color: var(--black-clr);
+    font-weight: 700;
+}
