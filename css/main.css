@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
 
 :root{
-    --orange-clr: hsl(26, 100%, 55%);
+    /* --lightning-orange: 55%; */
+    --saturation: 100%;
+    --orange-clr: hsl(26, var(--saturation), 55%);
     --pale-orange-clr: hsl(25, 100%, 94%);
     --very-dark-blue-clr: hsl(220, 13%, 13%);
     --dark-grayish-blue-clr: hsl(219, 9%, 45%);
@@ -43,6 +45,8 @@ img{
     display: flex;
     align-items: center;
 }
+.top-header__left{ padding-left: .5em; }
+.top-header__right{ padding-right: .5em; }
 .logo{
     position: relative;
     display: inline-block;
@@ -57,7 +61,7 @@ img{
 }
 .top-header__cart{ 
     position: relative; 
-    margin-right: .5em;
+    margin-right: .8em;
 }
 .user-container img{
     width: 30px;
@@ -76,7 +80,7 @@ img{
     top: -30%;
     left: -7%;
     z-index: 1;
-    display: none;
+    transform: translateX(-100%);
     width: 100vw;
     min-height: 100vh;
     background-color: rgba(0,0,0,.7);
@@ -99,4 +103,98 @@ img{
     text-decoration: none;
     color: var(--black-clr);
     font-weight: 700;
+}
+.product__content{
+    /* --saturation: 88%; */
+    padding: 1.2em;
+    margin-bottom: 2em;
+}
+.product__content .company-name{
+    margin-bottom: 1em;
+    /* color: var(--orange-clr); */
+    color:  hsl(26, 88%, 55%);
+    font-weight: 700;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.product__title{
+    font-size: 1.8rem;
+}
+.product__description{
+    margin: 1.2em 0 2em;
+    color: var(--dark-grayish-blue-clr);
+}
+.product__price,
+.product__price .discount-price{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.product__price .price-discount{
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.product__price .discount{
+    margin-left: 1em;
+    padding: .3em .5em;
+    background-color: hsl(26, 80%, 92%);
+    color: hsl(26, 80%, 55%);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+.product__price .full-price{
+    width: max-content;
+    text-decoration: line-through;
+    color: var(--grayish-blue-clr);
+    font-weight: 700;
+}
+.product__content .cart-form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5em;
+}
+.cart-form__input-container{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1em;
+    background-color: var(--light-grayish-blue-clr);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+#product__quantity{
+    position: relative;
+    padding: 1em;
+    text-align: center;
+    font-weight: 700;
+    border: none;
+    background-color: inherit;
+    appearance: textfield;
+        -webkit-appearance: textfield;
+}
+#product__quantity:focus{ outline: none; }
+.cart-form__add-btn{
+    display: flex;
+    justify-content: center;
+    padding: 1.2em 1em;
+    color: var(--white-clr);
+    background-color: var(--orange-clr);
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+}
+.cart-form__add-btn img{
+    margin-right: 1em;
+    width: 6%;
+}
+.cart-form__input-container .btn-changeValue{
+    position: relative;
+    background: inherit;
+    max-height: max-content;
+    padding: .5em 1em;
+    border: none;
 }
