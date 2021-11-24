@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/main.js" defer></script>
   <title>Frontend Mentor | E-commerce product page</title>
 </head>
 <body>
@@ -54,12 +55,49 @@
         <img src="images/image-avatar.png" alt="User" class="user-container__img">
       </button>
     </div>
-   
+
+    <section class="cart-section">
+      <h3 class="cart-section__title">Cart</h3>
+      <div class="cart-section__body">
+        <p class="empty-msg">Your cart is empty.</p>
+        <ul class="cart-section__products">
+          <li>
+            <a href="#" class="product">
+              <img src="images/image-product-1-thumbnail.jpg" alt="">
+              <div class="product__abstract">
+                <h4 class="title">Autumn Limited Edition</h4>
+                <p class="price-calculation">
+                  $<span class="value">125.00 x</span>
+                  <span class="quantity">3</span>
+                </p>
+                <p class="final-price">$ 375.00</p>
+              </div>
+              <button type="button">
+                <span class="">Delete this product</span>
+                <img src="images/icon-delete.svg" alt="">
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <button type="button">Checkout</button>
+    </section>
+    
   </header>
 
   <main>
     <div class="product">
-      <img src="images/image-product-1.jpg" alt="Brown and white sneaker">
+      <div class="product__image">
+        <button type="button" class="btn-previousImage">
+          <span class="sr-only">Previous Image</span>
+          <img src="images/icon-previous.svg" alt="">
+        </button>
+        <img src="images/image-product-1.jpg" alt="Brown and white sneaker">
+        <button type="button" class="btn-nextImage">
+          <span class="sr-only">Next Image</span>
+          <img src="images/icon-next.svg" alt="">
+        </button>
+      </div>
       <div class="product__content">
         <header>
           <h2 class="company-name">Sneaker Company</h2>
