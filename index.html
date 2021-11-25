@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/cart.js"></script>
   <script src="js/main.js" defer></script>
   <title>Frontend Mentor | E-commerce product page</title>
 </head>
@@ -47,11 +48,11 @@
       </nav>
     </div>
     <div class="top-header__right">
-      <button class="top-header__cart" type="button">
-        <span class="sr-only">Cart</span>
-        <img src="images/icon-cart.svg" alt="">
+      <button class="top-header__btn-cart" type="button">
+        <span class="sr-only ">Cart</span>
+        <img src="images/icon-cart.svg" alt="" class="cart-img">
         <p class="items-quantity">
-          <span>3</span><span class="sr-only">items</span>
+          <span class="value">0</span><span class="sr-only">items</span>
         </p>
       </button>
       <button class="user-container" type="button">
@@ -96,7 +97,6 @@
         <button type="button" class="cart-section__btn-checkout">Checkout</button>
       </div>
       
-      
     </section>
     
   </header>
@@ -108,7 +108,7 @@
           <span class="sr-only">Previous Image</span>
           <img src="images/icon-previous.svg" alt="">
         </button>
-        <img src="images/image-product-1.jpg" alt="Brown and white sneaker">
+        <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image" id="item-cart-1">
         <button type="button" class="btn-nextImage">
           <span class="sr-only">Next Image</span>
           <img src="images/icon-next.svg" alt="">
@@ -133,15 +133,15 @@
           </div>
         </div>
         
-        <form action="" class="cart-form">
+        <form action="#" class="cart-form">
           <label for="product__quantity" class="sr-only">Define how many you want</label>
           <div class="cart-form__input-container">
-            <button type="button" class="btn-changeValue">
-              <span class="sr-only">Less one item</span>
+            <button type="button" class="btn-changeValue minus-btn">
+              <span class="sr-only">Minus one item</span>
               <img src="images/icon-minus.svg" alt="">
             </button>
             <input type="number" min="0" value="0" id="product__quantity">
-            <button type="button" class="btn-changeValue">
+            <button type="button" class="btn-changeValue plus-btn">
               <span class="sr-only">Plus one item</span>
               <img src="images/icon-plus.svg" alt="">
             </button>
