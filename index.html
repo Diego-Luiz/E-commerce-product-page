@@ -50,6 +50,9 @@
       <button class="top-header__cart" type="button">
         <span class="sr-only">Cart</span>
         <img src="images/icon-cart.svg" alt="">
+        <p class="items-quantity">
+          <span>3</span><span class="sr-only">items</span>
+        </p>
       </button>
       <button class="user-container" type="button">
         <img src="images/image-avatar.png" alt="User" class="user-container__img">
@@ -63,24 +66,37 @@
         <ul class="cart-section__products">
           <li>
             <a href="#" class="product">
-              <img src="images/image-product-1-thumbnail.jpg" alt="">
+              <img src="images/image-product-1-thumbnail.jpg" alt="" class="product__thumb">
               <div class="product__abstract">
                 <h4 class="title">Autumn Limited Edition</h4>
-                <p class="price-calculation">
-                  $<span class="value">125.00 x</span>
-                  <span class="quantity">3</span>
+                <div class="price-calculation">
+                  <div class="price-calculation__value">
+                    &dollar;
+                    <span class="value__span">125.00</span>
+                    <span class="sr-only">dollars</span>
+                    <span class="sr-only">by</span>
+                    <span aria-hidden="true">x</span>
+                    <span class="quantity">3</span>
+                  </div>
+                </div>
+                <p class="price-calculation__final-price">
+                  &dollar; 
+                  <span class="final-price__span">375.00</span>
+                  <span class="sr-only">dollars on total</span> 
                 </p>
-                <p class="final-price">$ 375.00</p>
               </div>
-              <button type="button">
-                <span class="">Delete this product</span>
+              <button type="button" class="btn-del-product">
+                <span class="sr-only">Delete this product</span>
                 <img src="images/icon-delete.svg" alt="">
               </button>
             </a>
           </li>
         </ul>
+
+        <button type="button" class="cart-section__btn-checkout">Checkout</button>
       </div>
-      <button type="button">Checkout</button>
+      
+      
     </section>
     
   </header>
