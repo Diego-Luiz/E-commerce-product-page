@@ -1,33 +1,47 @@
-const Cart = (
+const cart = (
   function(){
-    function createItemToCart(productId, quantity){
+    function createItemToCart(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice){
       return {
         item_id: productId,
-        quantity 
+        quantity,
+        thumb_URL: thumbImageURL,
+        name: productName,
+        discount_price: discountPrice,
+        total_price: totalPrice
       }
     }
-    function addNewItem(productId, quantity){
-      const newItem = createItemToCart(productId, quantity)
+    function addNewItem(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice){
+      let item = JSON.parse(sessionStorage.getItem(productId))
+      if(item !== null){
+        quantity = parseInt(quantity) + parseInt(item.quantity)
+      }
+      const newItem = createItemToCart(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice)
       sessionStorage.setItem(newItem.item_id, JSON.stringify(newItem))
     }
     function loadAllItems(){
-      //
-    }
-    function getCartSize(){
+      const items = []
       let sessionStorageLength = sessionStorage.length
-      let counter = 0
       for(let i = 0; i < sessionStorageLength; i++){
         let item = sessionStorage.getItem(`item-cart-${i}`)
         if(item !== null){
           item = JSON.parse(item)
-          counter += parseInt(item.quantity)
+          items.push(item)
         }
       }
-      return counter
+      return items
+    }
+    function getCartSize(){
+      const items = loadAllItems()
+      let total = 0
+      for(let {quantity} of items){
+        total += parseInt(quantity)
+      }
+      return total
     }
     return {
       addNewItem,
-      getCartSize
+      getCartSize,
+      loadAllItems
     }
   }
 )()
