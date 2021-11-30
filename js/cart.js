@@ -12,11 +12,17 @@ const cart = (
     }
     function addNewItem(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice){
       let item = JSON.parse(sessionStorage.getItem(productId))
+      let flagAlreadyExisted = false
       if(item !== null){
+        flagAlreadyExisted = true
         quantity = parseInt(quantity) + parseInt(item.quantity)
       }
-      const newItem = createItemToCart(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice)
+      let newItem = createItemToCart(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice)
       sessionStorage.setItem(newItem.item_id, JSON.stringify(newItem))
+      
+      newItem.existsInDOM = flagAlreadyExisted
+      
+      return newItem
     }
     function loadAllItems(){
       const items = []
@@ -38,10 +44,15 @@ const cart = (
       }
       return total
     }
+    function deleteItem(productId){
+      sessionStorage.removeItem(productId)
+    }
+
     return {
       addNewItem,
       getCartSize,
-      loadAllItems
+      loadAllItems,
+      deleteItem
     }
   }
 )()
