@@ -5,6 +5,7 @@
     const mainNavCloseBtn = document.querySelector('.main-nav__close-btn')
     const mainNavContentContainer = document.querySelector('.main-nav__content-container')
     const btnCart = document.querySelector('.top-header__btn-cart')
+    const btnUser = document.querySelector('.top-header .user-container')
     const cartSection = document.querySelector('.cart-section')
     const itemsCounter = document.querySelector('.top-header__btn-cart .items-quantity')
     const cartForm = document.querySelector('.cart-form')
@@ -12,8 +13,9 @@
     const productImage = document.querySelector('.product__image')
     const cartProducts = document.querySelector('.cart-section__products')
     const emptyMsg = document.querySelector('.empty-msg')
-    const btnCheckout = document.querySelector('.cart-section__btn-checkout')
     const cartBody = document.querySelector('.cart-section__body')
+
+    let productIndex = 0
 
     inputProductQuantity.value = 0
     manageItemsCounter(cart.getCartSize())
@@ -21,19 +23,24 @@
     navBtn.addEventListener('click', toggleMenu)
     mainNavCloseBtn.addEventListener('click',toggleMenu)
     btnCart.addEventListener('click', toggleCart)
+    btnUser.addEventListener('click', toggleBtnCheckout)
     productImage.addEventListener('click', manageProductClicks)
     cartForm.addEventListener('click', manageFormClicks)
     cartSection.addEventListener('click', manageCartClicks)
-    
+
     function toggleMenu(){
       document.documentElement.classList.toggle('--overflow-hidden')
       document.body.classList.toggle('--overflow-hidden')
       mainNav.classList.toggle('active')
       mainNavContentContainer.classList.toggle('active')
     }
-    
     function toggleCart(){
-      cartSection.style.display = "block"
+      if(cartSection.classList.contains('active')){
+        cartSection.style.display = "none"
+      }
+      else{
+        cartSection.style.display = "block"
+      }
       setTimeout(() => cartSection.classList.toggle('active'), 100)
       let src = "images/icon-cart-black.svg"
       if(btnCart.classList.contains('active')){
@@ -42,7 +49,22 @@
       btnCart.querySelector('img').src = src
       btnCart.classList.toggle('active')
     }
-
+    function toggleCartProducts(){
+      if(cart.getCartSize() <= 0 || emptyMsg.classList.contains('--deactivate')){
+        emptyMsg.classList.remove('--deactivate')
+        cartProducts.classList.remove('--active')
+        cartBody.classList.remove('--with-items')
+      }
+      else{
+        emptyMsg.classList.add('--deactivate')
+        cartProducts.classList.add('--active')
+        cartBody.classList.add('--with-items')
+      }
+    }
+    function toggleBtnCheckout(){
+      const btnCheckout = document.querySelector('.cart-section__btn-checkout')
+      btnCheckout.classList.toggle('--active')
+    }
     function manageFormClicks(event){
       let element = event.target
       if(!element.matches('.cart-form, #product__quantity')){
@@ -93,27 +115,34 @@
         
       }
     }
-
+    // ------------------------------
     function manageProductClicks(event){
       let element = event.target
-      console.log(element)
       if(!element.matches('.image')){
-        console.log('button!')
         if(element.matches('img')){
-          element = element.parentElement
+          element = element.closest('button')
         }
+        let productId = element.parentElement.querySelector('.product__image .image').id
         if(element.classList.contains('btn-previousImage')){
-          console.log('previous')
+          slideProductImage('-1', productId)
         }
         else{
           console.log('next')
+          slideProductImage('+1', productId)
         }
       }
       else{
         console.log('zoom the image')
       }
     }
+    function slideProductImage(controller, productId){
+      if(controller==='+1'){ //next
+        console.log('product: ', products.get(productId))
+      }
+      else{//previous
 
+      }
+    }
     function manageItemsCounter(quantity){
       itemsCounter.querySelector('.value').textContent = quantity
       if(!itemsCounter.classList.contains('active') && quantity > 0){
@@ -140,8 +169,6 @@
     function updateCartItems(item){
       const items = item || cart.loadAllItems()
       if(items.length > 0){
-        
-        // btnCheckout.classList.add('--active')
         toggleCartProducts()
         items.forEach(element => {
           //if the element is already on the cart, just update its quantity
@@ -158,11 +185,7 @@
       }
       
     }
-    function toggleCartProducts(){
-      emptyMsg.classList.toggle('--deactivate')
-      cartProducts.classList.toggle('--active')
-      cartBody.classList.toggle('--with-items')
-    }
+    
     function createDOMCartElement(item){
       const li = document.createElement('li')
       const liContent = `
