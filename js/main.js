@@ -50,7 +50,7 @@
       btnCart.classList.toggle('active')
     }
     function toggleCartProducts(){
-      if(cart.getCartSize() <= 0 || emptyMsg.classList.contains('--deactivate')){
+      if(cart.getCartSize() <= 0 && emptyMsg.classList.contains('--deactivate')){
         emptyMsg.classList.remove('--deactivate')
         cartProducts.classList.remove('--active')
         cartBody.classList.remove('--with-items')
@@ -83,6 +83,7 @@
           if(validFlag){
             if(quantity === "0"){
               alert('Please determine the product quantity.')
+              inputProductQuantity.value = 0
             }
             else{
               const productId = productImage.querySelector('.image').id
@@ -96,10 +97,10 @@
               manageItemsCounter(cart.getCartSize())
               updateCartItems([newItem])
             }
-            inputProductQuantity.value = 0
           }
           else{
             alert('Invalid quantity of the product!')
+            inputProductQuantity.value = 0
           }
         }
         else{
@@ -115,7 +116,6 @@
         
       }
     }
-    // ------------------------------
     function manageProductClicks(event){
       let element = event.target
       if(!element.matches('.image')){
@@ -124,24 +124,29 @@
         }
         let productId = element.parentElement.querySelector('.product__image .image').id
         if(element.classList.contains('btn-previousImage')){
-          slideProductImage('-1', productId)
+          slideProductImage('-', productId, element)
         }
         else{
-          console.log('next')
-          slideProductImage('+1', productId)
+          slideProductImage('+', productId, element)
         }
       }
       else{
         console.log('zoom the image')
       }
     }
-    function slideProductImage(controller, productId){
-      if(controller==='+1'){ //next
-        console.log('product: ', products.get(productId))
+    function slideProductImage(operator, productId, element){
+      let productImagesLength = products.get(productId).length - 1
+      if(operator === '+'){
+        productIndex = productIndex < productImagesLength ? productIndex + 1 : 0  
       }
       else{//previous
-
+        productIndex = productIndex > 0 ? productIndex - 1 : productImagesLength
       }
+      let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
+      const image = element.parentElement.querySelector('.image')
+      image.classList.add('--changed')
+      image.src = fullImgURL
+      setTimeout(() => image.classList.remove('--changed'), 200)
     }
     function manageItemsCounter(quantity){
       itemsCounter.querySelector('.value').textContent = quantity
@@ -205,7 +210,7 @@
               </div>
               <p class="price-calculation__final-price">
                 &dollar; 
-                <span class="final-price__span">${item.total_price}</span>
+                <span class="final-price__span">${(item.discount_price * item.quantity).toFixed(2)}</span>
                 <span class="sr-only">dollars on total</span> 
               </p>
           </div>
