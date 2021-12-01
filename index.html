@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
-  <script src="js/products.js" async></script>
+  <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/main.js" defer></script>
   <title>Frontend Mentor | E-commerce product page</title>
@@ -30,19 +30,19 @@
           </button>
           <ul class="main-nav__links">
             <li>
-              <a href="#" class="link-item">Collections</a>
+              <a href="#" class="nav-item">Collections</a>
             </li>
             <li>
-              <a href="#" class="link-item">Men</a>
+              <a href="#" class="nav-item">Men</a>
             </li>
             <li>
-              <a href="#" class="link-item">Women</a>
+              <a href="#" class="nav-item">Women</a>
             </li>
             <li>
-              <a href="#" class="link-item">About</a>
+              <a href="#" class="nav-item">About</a>
             </li>
             <li>
-              <a href="#" class="link-item">Contact</a>
+              <a href="#" class="nav-item">Contact</a>
             </li>
           </ul>
         </div>
@@ -50,7 +50,7 @@
     </div>
     <div class="top-header__right">
       <button class="top-header__btn-cart" type="button">
-        <span class="sr-only ">Cart</span>
+        <span class="sr-only">Cart</span>
         <img src="images/icon-cart.svg" alt="" class="cart-img">
         <p class="items-quantity">
           <span class="value">0</span><span class="sr-only">items</span>
@@ -65,29 +65,51 @@
       <h3 class="cart-section__title">Cart</h3>
       <div class="cart-section__body">
         <p class="empty-msg">Your cart is empty.</p>
-        <ul class="cart-section__products">
-          <li></li>
-        </ul>
-
+        <ul class="cart-section__products"></ul>
         <button type="button" class="cart-section__btn-checkout">Checkout</button>
       </div>
-      
     </section>
     
   </header>
 
   <main>
-    <div class="product">
-      <div class="product__image">
-        <button type="button" class="btn-previousImage">
-          <span class="sr-only">Previous Image</span>
-          <img src="images/icon-previous.svg" alt="">
-        </button>
-        <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image" id="item-cart-1">
-        <button type="button" class="btn-nextImage">
-          <span class="sr-only">Next Image</span>
-          <img src="images/icon-next.svg" alt="">
-        </button>
+    <article class="product">
+      <div class="product__slider">
+        <div class="image-box">
+          <button type="button" class="btn-previousImage">
+            <span class="sr-only">Previous Image</span>
+            <img src="images/icon-previous.svg" alt="">
+          </button>
+          <button type="button" class="btn-nextImage">
+            <span class="sr-only">Next Image</span>
+            <img src="images/icon-next.svg" alt="">
+          </button>
+          <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image-box__src" data-product-id="item-cart-1">
+        </div>
+        
+        <ul class="product__thumbs">
+          <li class="thumb-item">
+            <button type="button" class="thumb-item__btn">
+              <img src="images/image-product-1-thumbnail.jpg" alt="" data-thumb-index="0">
+            </button>
+          </li>
+          <li class="thumb-item">
+            <button type="button" class="thumb-item__btn">
+              <img src="images/image-product-2-thumbnail.jpg" alt="" data-thumb-index="1">
+            </button>
+          </li>
+          <li class="thumb-item">
+            <button type="button" class="thumb-item__btn">
+              <img src="images/image-product-3-thumbnail.jpg" alt="" data-thumb-index="2">
+            </button>
+          </li>
+          <li class="thumb-item">
+            <button type="button" class="thumb-item__btn">
+              <img src="images/image-product-4-thumbnail.jpg" alt="" data-thumb-index="3">
+            </button>
+          </li>
+          
+        </ul>
       </div>
       <div class="product__content">
         <header>
@@ -101,8 +123,8 @@
         </p>
         <div class="product__price">
           <div class="discount-price">
-            <p class="price-discount">&dollar;125.00</p>
-            <p class="discount">50%</p>
+            <p class="discount-price__value">&dollar;125.00</p>
+            <p class="discount-price__discount">50%</p>
           </div>
           <div class="full-price">
             <p>&dollar;250.00</p>
@@ -113,12 +135,12 @@
           <label for="product__quantity" class="sr-only">Define how many you want</label>
           <div class="cart-form__input-container">
             <button type="button" class="btn-changeValue minus-btn">
-              <span class="sr-only">Minus one item</span>
+              <span class="sr-only">Minusnav item</span>
               <img src="images/icon-minus.svg" alt="">
             </button>
             <input type="number" min="0" value="0" id="product__quantity">
             <button type="button" class="btn-changeValue plus-btn">
-              <span class="sr-only">Plus one item</span>
+              <span class="sr-only">Plusnav item</span>
               <img src="images/icon-plus.svg" alt="">
             </button>
           </div>
@@ -127,9 +149,8 @@
             Add to cart
           </button>
         </form>
-
       </div>
-    </div>
+    </article>
     
   </main>
   

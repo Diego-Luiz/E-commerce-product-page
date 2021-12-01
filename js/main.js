@@ -10,7 +10,7 @@
     const itemsCounter = document.querySelector('.top-header__btn-cart .items-quantity')
     const cartForm = document.querySelector('.cart-form')
     const inputProductQuantity = document.getElementById('product__quantity') 
-    const productImage = document.querySelector('.product__image')
+    const productSlider = document.querySelector('.product__slider')
     const cartProducts = document.querySelector('.cart-section__products')
     const emptyMsg = document.querySelector('.empty-msg')
     const cartBody = document.querySelector('.cart-section__body')
@@ -24,7 +24,7 @@
     mainNavCloseBtn.addEventListener('click',toggleMenu)
     btnCart.addEventListener('click', toggleCart)
     btnUser.addEventListener('click', toggleBtnCheckout)
-    productImage.addEventListener('click', manageProductClicks)
+    productSlider.addEventListener('click', manageProductClicks)
     cartForm.addEventListener('click', manageFormClicks)
     cartSection.addEventListener('click', manageCartClicks)
 
@@ -86,10 +86,10 @@
               inputProductQuantity.value = 0
             }
             else{
-              const productId = productImage.querySelector('.image').id
+              const productId = productSlider.querySelector('.product__slider .image-src').getAttribute('data-product-id')
               const thumbImageURL = `images/image-product-${productId.split('-')[2]}-thumbnail.jpg`
               const productName = document.querySelector('.product__name').textContent.trim()
-              let discountPrice = document.querySelector('.price-discount').textContent.trim()
+              let discountPrice = document.querySelector('.discount-price__value').textContent.trim()
               discountPrice = discountPrice.replace('$', '')
               let totalPrice = document.querySelector('.full-price').textContent.trim()
               totalPrice = totalPrice.replace('$', '')
@@ -118,32 +118,44 @@
     }
     function manageProductClicks(event){
       let element = event.target
-      if(!element.matches('.image')){
+      if(!element.matches('.image-box__src')){
         if(element.matches('img')){
           element = element.closest('button')
         }
-        let productId = element.parentElement.querySelector('.product__image .image').id
+        // let productId = element.parentElement.querySelector('.image-box__src').getAttribute('data-product-id')
+        console.log('element: ', element)
+        
+  
         if(element.classList.contains('btn-previousImage')){
-          slideProductImage('-', productId, element)
+          let product = element.parentElement.querySelector('.image-box__src')
+          element = element.parentElement.querySelector('.image-box__src')
+          slideProductImage('-', product.getAttribute('data-product-id'), element)
+        }
+        else if(element.classList.contains('btn-nextImage')){
+          let product = element.parentElement.querySelector('.image-box__src')
+          element = element.parentElement.querySelector('.image-box__src')
+          slideProductImage('+', product.getAttribute('data-product-id'), element)
         }
         else{
-          slideProductImage('+', productId, element)
+          let product = element.closest('.product__slider').querySelector('.image-box__src')
+          productIndex = element.querySelector('img').getAttribute('data-thumb-index')
+          slideProductImage('',product.getAttribute('data-product-id'), product)
         }
       }
       else{
         console.log('zoom the image')
       }
     }
-    function slideProductImage(operator, productId, element){
+    function slideProductImage(operator, productId, image){
       let productImagesLength = products.get(productId).length - 1
       if(operator === '+'){
         productIndex = productIndex < productImagesLength ? productIndex + 1 : 0  
       }
-      else{//previous
+      else if(operator === '-'){
         productIndex = productIndex > 0 ? productIndex - 1 : productImagesLength
       }
+      
       let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
-      const image = element.parentElement.querySelector('.image')
       image.classList.add('--changed')
       image.src = fullImgURL
       setTimeout(() => image.classList.remove('--changed'), 200)
@@ -194,9 +206,9 @@
     function createDOMCartElement(item){
       const li = document.createElement('li')
       const liContent = `
-        <a href="#" class="product" data-item-id=${item.item_id}>
+        <a href="#" class="list-item" data-item-id=${item.item_id}>
           <img src="${item.thumb_URL}" alt="" class="product__thumb">
-          <div class="product__abstract">
+          <div class="list-item__abstract">
             <h4 class="title">${item.name}</h4>
               <div class="price-calculation">
                 <div class="price-calculation__value">

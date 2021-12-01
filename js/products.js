@@ -16,5 +16,4 @@ products.set('item-cart-1', [
     full_img_url: 'images/image-product-4.jpg',
     thumb_img_url: 'images/image-product-4-thumbnail.jpg',
   }
-
 ])
