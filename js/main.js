@@ -32,6 +32,8 @@
       document.documentElement.classList.toggle('--overflow-hidden')
       document.body.classList.toggle('--overflow-hidden')
       mainNav.classList.toggle('active')
+      mainNav.ariaHidden = false
+      mainNav.ariaExpanded = true
       mainNavContentContainer.classList.toggle('active')
     }
     function toggleCart(){
@@ -86,7 +88,7 @@
               inputProductQuantity.value = 0
             }
             else{
-              const productId = productSlider.querySelector('.product__slider .image-src').getAttribute('data-product-id')
+              const productId = productSlider.querySelector('.image-box__src').getAttribute('data-product-id')
               const thumbImageURL = `images/image-product-${productId.split('-')[2]}-thumbnail.jpg`
               const productName = document.querySelector('.product__name').textContent.trim()
               let discountPrice = document.querySelector('.discount-price__value').textContent.trim()
@@ -123,9 +125,7 @@
           element = element.closest('button')
         }
         // let productId = element.parentElement.querySelector('.image-box__src').getAttribute('data-product-id')
-        console.log('element: ', element)
-        
-  
+      
         if(element.classList.contains('btn-previousImage')){
           let product = element.parentElement.querySelector('.image-box__src')
           element = element.parentElement.querySelector('.image-box__src')
