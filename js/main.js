@@ -16,7 +16,6 @@
     const cartBody = document.querySelector('.cart-section__body')
 
     let productIndex = 0
-
     inputProductQuantity.value = 0
     manageItemsCounter(cart.getCartSize())
     updateCartItems()
@@ -120,30 +119,22 @@
     }
     function manageProductClicks(event){
       let element = event.target
-      if(!element.matches('.image-box__src')){
+      if(element.matches(`img[src*='images/icon'], [type=button]`)){
         if(element.matches('img')){
           element = element.closest('button')
         }
-        // let productId = element.parentElement.querySelector('.image-box__src').getAttribute('data-product-id')
-      
-        if(element.classList.contains('btn-previousImage')){
-          let product = element.parentElement.querySelector('.image-box__src')
-          element = element.parentElement.querySelector('.image-box__src')
-          slideProductImage('-', product.getAttribute('data-product-id'), element)
-        }
-        else if(element.classList.contains('btn-nextImage')){
-          let product = element.parentElement.querySelector('.image-box__src')
-          element = element.parentElement.querySelector('.image-box__src')
-          slideProductImage('+', product.getAttribute('data-product-id'), element)
-        }
-        else{
-          let product = element.closest('.product__slider').querySelector('.image-box__src')
-          productIndex = element.querySelector('img').getAttribute('data-thumb-index')
-          slideProductImage('',product.getAttribute('data-product-id'), product)
-        }
+        let product = element.parentElement.querySelector('.image-box__src')
+        element = element.parentElement.querySelector('.image-box__src')
+        let operation = element.classList.contains('btn-nextImage') ? '+' : '-'
+        slideProductImage(operation, product.getAttribute('data-product-id'), element)
       }
-      else{
-        console.log('zoom the image')
+      else if(element.matches('[data-thumb-index]')){
+        let product = element.closest('.product__slider').querySelector('.image-box__src')
+        productIndex = element.getAttribute('data-thumb-index')
+        slideProductImage('',product.getAttribute('data-product-id'), product)
+      }
+      else if(element.matches('.image-box__src')){
+        zoomProductImage()
       }
     }
     function slideProductImage(operator, productId, image){
@@ -154,7 +145,6 @@
       else if(operator === '-'){
         productIndex = productIndex > 0 ? productIndex - 1 : productImagesLength
       }
-      
       let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
       image.classList.add('--changed')
       image.src = fullImgURL
@@ -169,7 +159,9 @@
         itemsCounter.classList.remove('active')
       }
     }
-
+    function zoomProductImage(){
+      console.log('here to zoom: ')
+    }
     function manageCartClicks(event){
       let element = event.target 
       if(element.matches("img:not(.product__thumb)")){
