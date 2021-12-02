@@ -14,7 +14,8 @@
     const cartProducts = document.querySelector('.cart-section__products')
     const emptyMsg = document.querySelector('.empty-msg')
     const cartBody = document.querySelector('.cart-section__body')
-
+    const lightbox = document.querySelector('.lightbox')
+    
     let productIndex = 0
     inputProductQuantity.value = 0
     manageItemsCounter(cart.getCartSize())
@@ -26,10 +27,14 @@
     productSlider.addEventListener('click', manageProductClicks)
     cartForm.addEventListener('click', manageFormClicks)
     cartSection.addEventListener('click', manageCartClicks)
-
-    function toggleMenu(){
+    lightbox.addEventListener('click', manageProductClicks)
+    
+    function toggleDocumentOverflow(){
       document.documentElement.classList.toggle('--overflow-hidden')
       document.body.classList.toggle('--overflow-hidden')
+    }
+    function toggleMenu(){
+      toggleDocumentOverflow()
       mainNav.classList.toggle('active')
       mainNav.ariaHidden = false
       mainNav.ariaExpanded = true
@@ -119,7 +124,13 @@
     }
     function manageProductClicks(event){
       let element = event.target
-      if(element.matches(`img[src*='images/icon'], [type=button]`)){
+      if(element.matches('.btn-close__src, .product__slider___btn-close-lightbox') || event.key === "Escape"){
+        setTimeout(() => lightbox.style.display = '', 200)
+        toggleDocumentOverflow()
+        lightbox.children[0].remove()
+        document.body.removeEventListener('keydown', manageProductClicks)
+      }
+      else if(element.matches(`img[src*='images/icon'], [type=button]`)){
         if(element.matches('img')){
           element = element.closest('button')
         }
@@ -133,10 +144,23 @@
         productIndex = element.getAttribute('data-thumb-index')
         slideProductImage('',product.getAttribute('data-product-id'), product)
       }
-      else if(element.matches('.image-box__src')){
-        zoomProductImage()
+      else if(element.matches('.image-box__src') && window.matchMedia(`(min-width: 992px)`).matches && !getDocumentOverflowStatus()){
+        toggleDocumentOverflow()
+        zoomProductImage(element)
       }
     }
+    function getDocumentOverflowStatus(){
+      return document.body.classList.contains('--overflow-hidden')
+    }
+    function zoomProductImage(image){
+      const productSlider = image.closest('.product__slider')
+      const clonedElement = productSlider.cloneNode(true)
+      document.body.addEventListener('keydown', manageProductClicks)
+      clonedElement.classList.add('--lightbox-active')
+      lightbox.appendChild(clonedElement)
+      setTimeout(() => lightbox.style.display = 'flex', 200)
+    }
+
     function slideProductImage(operator, productId, image){
       let productImagesLength = products.get(productId).length - 1
       if(operator === '+'){
@@ -147,8 +171,10 @@
       }
       let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
       image.classList.add('--changed')
-      image.src = fullImgURL
-      setTimeout(() => image.classList.remove('--changed'), 200)
+      setTimeout(() => {
+        image.classList.remove('--changed')
+        image.src = fullImgURL
+      }, 200)
     }
     function manageItemsCounter(quantity){
       itemsCounter.querySelector('.value').textContent = quantity
@@ -159,9 +185,7 @@
         itemsCounter.classList.remove('active')
       }
     }
-    function zoomProductImage(){
-      console.log('here to zoom: ')
-    }
+    
     function manageCartClicks(event){
       let element = event.target 
       if(element.matches("img:not(.product__thumb)")){

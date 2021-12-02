@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="css/main.css">
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
-  <!-- <script src="js/main.js" defer></script> -->
+  <script src="js/main.js" defer></script>
   <title>Frontend Mentor | E-commerce product page</title>
 </head>
 <body>
-  <!-- <header class="top-header">
+  <header class="top-header">
     <div class="top-header__left">
       <button class="nav-btn" type="button">
         <span class="sr-only">Menu</span>
@@ -75,6 +75,10 @@
   <main>
     <article class="product">
       <div class="product__slider default-container">
+        <button type="button" class="product__slider___btn-close-lightbox">
+          <span class="sr-only">Close lightbox</span>
+          <img src="images/icon-close.svg" alt="" class="btn-close__src">
+        </button>  
         <div class="image-box">
           <button type="button" class="btn-previousImage">
             <span class="sr-only">Previous Image</span>
@@ -108,7 +112,6 @@
               <img src="images/image-product-4-thumbnail.jpg" alt="" data-thumb-index="3">
             </button>
           </li>
-          
         </ul>
       </div>
       <div class="product__content default-container">
@@ -151,8 +154,8 @@
         </form>
       </div>
     </article>
-    
-  </main> -->
+  </main>
   
+  <div class="lightbox"></div>
 </body>
 </html>
