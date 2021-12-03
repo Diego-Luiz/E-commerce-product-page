@@ -48,12 +48,7 @@
         cartSection.style.display = "block"
       }
       setTimeout(() => cartSection.classList.toggle('active'), 100)
-      let src = "images/icon-cart-black.svg"
-      if(btnCart.classList.contains('active')){
-        src = "images/icon-cart.svg"
-      }
-      btnCart.querySelector('img').src = src
-      btnCart.classList.toggle('active')
+      btnCart.classList.toggle('--active')
     }
     function toggleCartProducts(){
       if(cart.getCartSize() <= 0 && emptyMsg.classList.contains('--deactivate')){
@@ -73,11 +68,8 @@
     }
     function manageFormClicks(event){
       let element = event.target
-      if(!element.matches('.cart-form, #product__quantity')){
-        if(element.matches('img')){
-          element = element.parentElement
-        }
-        if(element.matches('.cart-form__add-btn')){
+      if(!element.matches(`.cart-form, #product__quantity, .cart-form__input-container`)){
+        if(element.matches(`.icon-cart, .cart-form__add-btn`)){
           const notValidEntries = ['+', '-', 'e']
           let validFlag = true
           let quantity = inputProductQuantity.value
@@ -111,7 +103,7 @@
         }
         else{
           let newValue = 0
-          if(element.classList.contains('plus-btn')){
+          if(element.matches(`.plus-item, .icon-plus`)){
             newValue = parseInt(inputProductQuantity.value) + 1
           }
           else if(inputProductQuantity.value != "0"){
@@ -124,27 +116,32 @@
     }
     function manageProductClicks(event){
       let element = event.target
-      if(element.matches('.btn-close__src, .product__slider___btn-close-lightbox') || event.key === "Escape"){
+      if(element.matches('.icon-close, .product__slider___btn-close-lightbox') || event.key === "Escape"){
         setTimeout(() => lightbox.style.display = '', 200)
         toggleDocumentOverflow()
         lightbox.children[0].remove()
         document.body.removeEventListener('keydown', manageProductClicks)
       }
-      else if(element.matches(`img[src*='images/icon'], [type=button]`)){
-        if(element.matches('img')){
+      else if(element.matches(`.icon, [class*='btn']`) || event.key){
+        if(element.matches('.icon')){
           element = element.closest('button')
         }
-        let product = element.parentElement.querySelector('.image-box__src')
-        element = element.parentElement.querySelector('.image-box__src')
-        let operation = element.classList.contains('btn-nextImage') ? '+' : '-'
-        slideProductImage(operation, product.getAttribute('data-product-id'), element)
+        if(event.key){
+          element = element.querySelector('.lightbox .image-box__src')
+        }
+        else{
+          element = element.parentElement.querySelector('.image-box__src')
+        }
+        let product = element.getAttribute('data-product-id')
+        let operation = element.classList.contains('btn-nextImage') || event.key === "ArrowRight" ? '+' : '-'
+        slideProductImage(operation, product, element)
       }
       else if(element.matches('[data-thumb-index]')){
         let product = element.closest('.product__slider').querySelector('.image-box__src')
         productIndex = element.getAttribute('data-thumb-index')
         slideProductImage('',product.getAttribute('data-product-id'), product)
       }
-      else if(element.matches('.image-box__src') && window.matchMedia(`(min-width: 992px)`).matches && !getDocumentOverflowStatus()){
+      else if(!getDocumentOverflowStatus() && element.matches('.image-box__src') && window.matchMedia(`(min-width: 992px)`).matches){
         toggleDocumentOverflow()
         zoomProductImage(element)
       }
@@ -160,7 +157,6 @@
       lightbox.appendChild(clonedElement)
       setTimeout(() => lightbox.style.display = 'flex', 200)
     }
-
     function slideProductImage(operator, productId, image){
       let productImagesLength = products.get(productId).length - 1
       if(operator === '+'){
@@ -185,7 +181,6 @@
         itemsCounter.classList.remove('active')
       }
     }
-    
     function manageCartClicks(event){
       let element = event.target 
       if(element.matches("img:not(.product__thumb)")){
@@ -204,12 +199,11 @@
       if(items.length > 0){
         toggleCartProducts()
         items.forEach(element => {
-          //if the element is already on the cart, just update its quantity
+          //if the element is already on the cart, just update its quantity and final price
           if(element.existsInDOM){
-            const elementQuantity = document.querySelector(
-              `[data-item-id=${element.item_id}] .price-calculation__value .quantity`
-            )
-            elementQuantity.textContent = element.quantity
+            const elementInDOM = document.querySelector(`[data-item-id=${element.item_id}]`)
+            elementInDOM.querySelector('.price-calculation__value .quantity').textContent = element.quantity
+            elementInDOM.querySelector('.final-price__span').textContent = (parseInt(element.discount_price) * parseInt(element.quantity)).toFixed(2)
           }
           else{
             cartProducts.appendChild(createDOMCartElement(element))
@@ -218,7 +212,6 @@
       }
       
     }
-    
     function createDOMCartElement(item){
       const li = document.createElement('li')
       const liContent = `
@@ -251,8 +244,5 @@
       li.innerHTML = liContent
       return li
     }
-
-    
-
   }
 )()

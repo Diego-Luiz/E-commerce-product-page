@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
   <meta name="author" content="Diego Luiz">
+  <meta name="description" content="E-commerce product page challenge by FrontEnd Mentor">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -26,7 +27,7 @@
         <div class="main-nav__content-container">
           <button class="main-nav__close-btn" type="button">
             <span class="sr-only">Close menu</span>
-            <img src="images/icon-close.svg" alt="">
+            <span class="icon icon-close" aria-hidden="true"></span>
           </button>
           <ul class="main-nav__links">
             <li>
@@ -51,7 +52,7 @@
     <div class="top-header__right">
       <button class="top-header__btn-cart" type="button">
         <span class="sr-only">Cart</span>
-        <img src="images/icon-cart.svg" alt="" class="cart-img">
+        <span class="icon icon-cart" aria-hidden="true"></span>
         <p class="items-quantity">
           <span class="value">0</span><span class="sr-only">items</span>
         </p>
@@ -77,16 +78,16 @@
       <div class="product__slider default-container">
         <button type="button" class="product__slider___btn-close-lightbox">
           <span class="sr-only">Close lightbox</span>
-          <img src="images/icon-close.svg" alt="" class="btn-close__src">
+          <span class="icon icon-close" aria-hidden="true"></span>
         </button>  
         <div class="image-box">
           <button type="button" class="btn-previousImage">
             <span class="sr-only">Previous Image</span>
-            <img src="images/icon-previous.svg" alt="">
+            <span class="icon icon-previous" aria-hidden="true"></span>
           </button>
           <button type="button" class="btn-nextImage">
             <span class="sr-only">Next Image</span>
-            <img src="images/icon-next.svg" alt="">
+            <span class="icon icon-next" aria-hidden="true"></span>
           </button>
           <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image-box__src" data-product-id="item-cart-1">
         </div>
@@ -137,18 +138,18 @@
         <form action="#" class="cart-form">
           <label for="product__quantity" class="sr-only">Define how many you want</label>
           <div class="cart-form__input-container">
-            <button type="button" class="btn-changeValue minus-btn">
-              <span class="sr-only">Minusnav item</span>
-              <img src="images/icon-minus.svg" alt="">
+            <button type="button" class="btn-changeValue minus-item">
+              <span class="sr-only">Minus one item</span>
+              <span class="icon icon-minus" aria-hidden="true"></span>
             </button>
             <input type="number" min="0" value="0" id="product__quantity">
-            <button type="button" class="btn-changeValue plus-btn">
-              <span class="sr-only">Plusnav item</span>
-              <img src="images/icon-plus.svg" alt="">
+            <button type="button" class="btn-changeValue plus-item">
+              <span class="sr-only">Plus one item</span>
+              <span class="icon icon-plus" aria-hidden="true"></span>
             </button>
           </div>
           <button type="button" class="cart-form__add-btn">
-            <img src="images/icon-cart-white.svg" alt="">
+            <span class="icon icon-cart" aria-hidden="true"></span>
             Add to cart
           </button>
         </form>
