@@ -20,6 +20,7 @@
     inputProductQuantity.value = 0
     manageItemsCounter(cart.getCartSize())
     updateCartItems()
+    autoSelectFirstThumbItem()
     navBtn.addEventListener('click', toggleMenu)
     mainNavCloseBtn.addEventListener('click',toggleMenu)
     btnCart.addEventListener('click', toggleCart)
@@ -29,6 +30,20 @@
     cartSection.addEventListener('click', manageCartClicks)
     lightbox.addEventListener('click', manageProductClicks)
     
+    function autoSelectFirstThumbItem(){
+      document.querySelectorAll(`[data-thumb-index='0']`).forEach( element => {
+        const thumbItem = element.closest('.thumb-item__btn')
+        let flagOtherAlreadySelected = false
+        document.querySelectorAll('.thumb-item__btn').forEach( otherThumb => {
+          if(otherThumb.classList.contains('--selected')){
+            flagOtherAlreadySelected = true
+          }
+        })
+        if(flagOtherAlreadySelected === false){
+          thumbItem.classList.add('--selected')
+        }
+      })
+    }
     function toggleDocumentOverflow(){
       document.documentElement.classList.toggle('--overflow-hidden')
       document.body.classList.toggle('--overflow-hidden')
@@ -137,13 +152,17 @@
         slideProductImage(operation, product, element)
       }
       else if(element.matches('[data-thumb-index]')){
-        let product = element.closest('.product__slider').querySelector('.image-box__src')
+        const localProductSlider = element.closest('.product__slider')
+        localProductSlider.querySelectorAll('.thumb-item__btn').forEach( item=> item.classList.remove('--selected'))
+        element.parentElement.classList.add('--selected')
+        let product = localProductSlider.querySelector('.image-box__src')
         productIndex = element.getAttribute('data-thumb-index')
         slideProductImage('',product.getAttribute('data-product-id'), product)
       }
       else if(!getDocumentOverflowStatus() && element.matches('.image-box__src') && window.matchMedia(`(min-width: 992px)`).matches){
         toggleDocumentOverflow()
         zoomProductImage(element)
+        autoSelectFirstThumbItem()
       }
     }
     function getDocumentOverflowStatus(){

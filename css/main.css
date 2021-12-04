@@ -103,6 +103,7 @@ img{
     align-items: center;
     padding: .8em .75em;
 }
+.top-header__left{ overflow-y: visible;}
 .top-header__left,
 .top-header__right{
     position: relative;
@@ -148,7 +149,10 @@ img{
     visibility: visible;
     opacity: 1;
 }
-.user-container img{ width: 30px; }
+.user-container img{ 
+    width: 30px; 
+    border-radius: 50%; 
+}
 .top-header__left .main-nav{
     position: absolute;
     top: -30%;
@@ -167,7 +171,8 @@ img{
     z-index: 5;
     background: var(--white-clr);
     transition: transform .5s ease-in-out;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: visible;
 }
 .main-nav.active,
 .main-nav__content-container.active{ 
@@ -182,15 +187,27 @@ img{
     padding-left: .5em;
     list-style: none;
 }
-.main-nav__links li{ margin: .5em 0; }
-.nav-item{
+.main-nav__links li{
+    position: relative;
+    padding: 1em;
+    margin: 0 auto;
+}
+.main-nav__links li::after{
+    content: "";
     display: inline-block;
-    padding: .5em .8em;
+    width: 102%;
+    height: 3px;
+    background-color: var(--orange-clr);
+}
+.nav-item{
+    position: relative;
+    display: inline-block;
     text-decoration: none;
     color: rgba(0,0,0,.7);
     font-weight: 700;
     font-size: 1.10rem;
 }
+
 .nav-btn,
 .user-container,
 .top-header__btn-cart,
@@ -350,6 +367,7 @@ img{
 .product__thumbs{
     display: none;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 2em;
     list-style: none;
     max-height: 100%;
@@ -370,11 +388,11 @@ img{
 .thumb-item__btn{
     padding: 0;
     border: none;
+    border-radius: var(--bd-radius);
     overflow: hidden;
 }
-.thumb-item__btn{
-    border-radius: var(--bd-radius);
-}
+.thumb-item__btn.--selected{ outline: solid 2px var(--orange-clr); }
+.thumb-item__btn.--selected img{ opacity: .5; }
 .image-box__src{
     margin-top: -30px;
     visibility: visible;
@@ -503,9 +521,27 @@ img{
     border: none;
 }
 
-/* @media (pointer: fine){
-    
-} */
+@media (hover:hover) and (pointer:fine){
+    .user-container:focus img,
+    .user-container:hover img{
+        outline: solid 2px var(--orange-clr);
+    }
+    .cart-form__add-btn:hover,
+    .cart-form__add-btn:focus,
+    .btn-changeValue:hover .icon,
+    .btn-changeValue:focus .icon{
+        opacity: .7;
+    }
+    .thumb-item__btn:hover img{ opacity: .5; }
+    .btn-nextImage:hover .icon,
+    .btn-nextImage:focus .icon,
+    .btn-previousImage:hover .icon,
+    .btn-previousImage:focus .icon,
+    .product__slider___btn-close-lightbox:hover .icon,
+    .product__slider___btn-close-lightbox:focus .icon{
+        background-color: var(--orange-clr);
+    }
+}
 @media screen and (min-width: 455px){ 
     .product__slider .image-box,
     .image-box__src{ 
