@@ -11,19 +11,19 @@
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/main.js" defer></script>
-  <title>Frontend Mentor | E-commerce product page</title>
+  <title>Frontend Mentor &verbar; E-commerce product page</title>
 </head>
 <body>
   <header class="top-header">
     <div class="top-header__left">
       <button class="nav-btn" type="button">
         <span class="sr-only">Menu</span>
-        <img src="images/icon-menu.svg" alt="">
+        <img src="images/icon-menu.svg" alt="" role="representation">
       </button>
       <h1 class="logo">
         <a href="#" class="invisible">sneakers</a>
       </h1>
-      <nav class="main-nav" aria-expanded="false" aria-hidden="true">
+      <nav class="main-nav">
         <div class="main-nav__content-container">
           <button class="main-nav__close-btn" type="button">
             <span class="sr-only">Close menu</span>
@@ -50,15 +50,15 @@
       </nav>
     </div>
     <div class="top-header__right">
-      <button class="top-header__btn-cart" type="button">
-        <span class="sr-only">Cart</span>
+      <button class="top-header__btn-cart" type="button" aria-controls="cart-section__products">
+        <span class="sr-only">Cart section</span>
         <span class="icon icon-cart" aria-hidden="true"></span>
         <p class="items-quantity">
           <span class="value">0</span><span class="sr-only">items</span>
         </p>
       </button>
-      <button class="user-container" type="button">
-        <img src="images/image-avatar.png" alt="User" class="user-container__img">
+      <button class="user-container" type="button" aria-label="User section">
+        <img src="images/image-avatar.png" alt="" class="user-container__img">
       </button>
     </div>
 
@@ -66,7 +66,7 @@
       <h3 class="cart-section__title">Cart</h3>
       <div class="cart-section__body">
         <p class="empty-msg">Your cart is empty.</p>
-        <ul class="cart-section__products"></ul>
+        <ul class="cart-section__products" id="cart-section__products" aria-live="polite"></ul>
         <button type="button" class="cart-section__btn-checkout">Checkout</button>
       </div>
     </section>
@@ -89,49 +89,49 @@
             <span class="sr-only">Next Image</span>
             <span class="icon icon-next" aria-hidden="true"></span>
           </button>
-          <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image-box__src" data-product-id="item-cart-1">
+          <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image-box__src" data-product-id="item-cart-1" tabindex="0" aria-controls="lightbox">
         </div>
         
         <ul class="product__thumbs default-container">
           <li class="thumb-item">
-            <button type="button" class="thumb-item__btn">
-              <img src="images/image-product-1-thumbnail.jpg" alt="" data-thumb-index="0">
+            <button type="button" class="thumb-item__btn" aria-label="choose image 1">
+              <img src="images/image-product-1-thumbnail.jpg" alt="" data-thumb-index="0" role="presentation">
             </button>
           </li>
           <li class="thumb-item">
-            <button type="button" class="thumb-item__btn">
-              <img src="images/image-product-2-thumbnail.jpg" alt="" data-thumb-index="1">
+            <button type="button" class="thumb-item__btn" aria-label="choose image 2">
+              <img src="images/image-product-2-thumbnail.jpg" alt="" data-thumb-index="1" role="presentation">
             </button>
           </li>
           <li class="thumb-item">
-            <button type="button" class="thumb-item__btn">
-              <img src="images/image-product-3-thumbnail.jpg" alt="" data-thumb-index="2">
+            <button type="button" class="thumb-item__btn" aria-label="choose image 3">
+              <img src="images/image-product-3-thumbnail.jpg" alt="" data-thumb-index="2" role="presentation">
             </button>
           </li>
           <li class="thumb-item">
-            <button type="button" class="thumb-item__btn">
-              <img src="images/image-product-4-thumbnail.jpg" alt="" data-thumb-index="3">
+            <button type="button" class="thumb-item__btn" aria-label="choose image 4">
+              <img src="images/image-product-4-thumbnail.jpg" alt="" data-thumb-index="3" role="presentation">
             </button>
           </li>
         </ul>
       </div>
-      <div class="product__content default-container">
+      <section class="product__content default-container">
         <header>
-          <h2 class="company-name">Sneaker Company</h2>
-          <span class="product__name">Autumn Limited Edition Sneakers</span>
-          <h3 class="product__title">Fall Limited Edition Sneakers</h3>
+          <h2 class="company-name" tabindex="0">Sneaker Company</h2>
+          <span class="product__name" tabindex="0">Autumn Limited Edition Sneakers</span>
+          <h3 class="product__title" tabindex="0">Fall Limited Edition Sneakers</h3>
         </header>
-        <p class="product__description">
+        <p class="product__description" tabindex="0">
           These low-profile sneakers are your perfect casual wear companion. Featuring a 
           durable rubber outer sole, they’ll withstand everything the weather can offer.
         </p>
         <div class="product__price">
           <div class="discount-price">
-            <p class="discount-price__value">&dollar;125.00</p>
-            <p class="discount-price__discount">50%</p>
+            <p class="discount-price__value" tabindex="0" aria-label="price with discount">&dollar;125.00</p>
+            <p class="discount-price__discount" tabindex="0" aria-label="price discount">50%</p>
           </div>
           <div class="full-price">
-            <p>&dollar;250.00</p>
+            <p tabindex="0" aria-label="price without discount">&dollar;250.00</p>
           </div>
         </div>
         
@@ -153,10 +153,10 @@
             Add to cart
           </button>
         </form>
-      </div>
+      </section>
     </article>
   </main>
   
-  <div class="lightbox"></div>
+  <div class="lightbox" id="lightbox"></div>
 </body>
 </html>

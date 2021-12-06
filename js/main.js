@@ -131,13 +131,14 @@
     }
     function manageProductClicks(event){
       let element = event.target
+      console.log('here element: ', element, ' event key: ', event.key)
       if(element.matches('.icon-close, .product__slider___btn-close-lightbox') || event.key === "Escape"){
         setTimeout(() => lightbox.style.display = '', 200)
         toggleDocumentOverflow()
         lightbox.children[0].remove()
         document.body.removeEventListener('keydown', manageProductClicks)
       }
-      else if(element.matches(`.icon, [class*='btn']`) || event.key){
+      else if(element.matches(`.icon, [class*='Image']`) || event.key === "ArrowRight" || event.key === "ArrowLeft"){
         if(element.matches('.icon')){
           element = element.closest('button')
         }
@@ -151,11 +152,18 @@
         let operation = element.classList.contains('btn-nextImage') || event.key === "ArrowRight" ? '+' : '-'
         slideProductImage(operation, product, element)
       }
-      else if(element.matches('[data-thumb-index]')){
+      else if(element.matches('[data-thumb-index], .thumb-item__btn')){
+        console.log('element: ', element)
         const localProductSlider = element.closest('.product__slider')
         localProductSlider.querySelectorAll('.thumb-item__btn').forEach( item=> item.classList.remove('--selected'))
-        element.parentElement.classList.add('--selected')
         let product = localProductSlider.querySelector('.image-box__src')
+        if(element.classList.contains('thumb-item__btn')){
+          element.classList.add('--selected')
+          element = element.querySelector('[data-thumb-index]')
+        }
+        else{
+           element.parentElement.classList.add('--selected')
+        }
         productIndex = element.getAttribute('data-thumb-index')
         slideProductImage('',product.getAttribute('data-product-id'), product)
       }
