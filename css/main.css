@@ -171,8 +171,7 @@ img{
     z-index: 5;
     background: var(--white-clr);
     transition: transform .5s ease-in-out;
-    overflow-x: auto;
-    overflow-y: visible;
+    overflow: visible;
 }
 .main-nav.active,
 .main-nav__content-container.active{ 
@@ -187,27 +186,15 @@ img{
     padding-left: .5em;
     list-style: none;
 }
-.main-nav__links li{
-    position: relative;
-    padding: 1em;
-    margin: 0 auto;
-}
-.main-nav__links li::after{
-    content: "";
-    display: inline-block;
-    width: 102%;
-    height: 3px;
-    background-color: var(--orange-clr);
-}
 .nav-item{
     position: relative;
     display: inline-block;
+    padding: .75em 1em;
     text-decoration: none;
     color: rgba(0,0,0,.7);
     font-weight: 700;
     font-size: 1.10rem;
 }
-
 .nav-btn,
 .user-container,
 .top-header__btn-cart,
@@ -541,6 +528,8 @@ img{
     .product__slider___btn-close-lightbox:focus .icon{
         background-color: var(--orange-clr);
     }
+    .nav-item:hover{ color: black; }
+    .nav-item:hover::after{ background-color: var(--orange-clr); }
 }
 @media screen and (min-width: 455px){ 
     .product__slider .image-box,
@@ -651,6 +640,22 @@ img{
         align-items: flex-start;
         margin-top: 0;
     }
+    .nav-item{
+        color: var(--dark-grayish-blue-clr);
+        font-size: 1rem;
+        font-weight: 400;
+        padding-bottom: 0;
+    }
+    .nav-item::after{
+        content: "";
+        position: relative;
+        top: 2.30em;
+        display: inline-block;
+        width: 100%;
+        height: 3px;
+        background-color: transparent;
+        transition: background-color .5s ease-in;
+    }
     .top-header__left .main-nav,
     .main-nav__content-container{
         transform: none;
@@ -664,9 +669,9 @@ img{
     }
     .cart-section{
         top: 80%;
-        left: 0%;
         right: 0%;
-        transform: translateX(125%);
+        left: calc(100% - 400px + 3em);
+        transform: none;
     }
     .product{
         display: grid;
@@ -680,11 +685,6 @@ img{
     .product__content{ align-self: center; }
     .product__thumbs{ margin-top: 2em; }
     .image-box__src{ margin-top: 0; }
-    .nav-item{
-        color: var(--dark-grayish-blue-clr);
-        font-size: 1rem;
-        font-weight: 400;
-    }
 }
 @media screen and (min-width: 1200px){ 
     .product{ 
