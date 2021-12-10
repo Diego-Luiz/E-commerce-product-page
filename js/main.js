@@ -1,5 +1,6 @@
-(
+const mainJs = (
   function(){
+    'strict'
     const navBtn = document.querySelector('.top-header__left .nav-btn')
     const mainNav = document.querySelector('.top-header__left .main-nav')
     const mainNavCloseBtn = document.querySelector('.main-nav__close-btn')
@@ -10,37 +11,56 @@
     const itemsCounter = document.querySelector('.top-header__btn-cart .items-quantity')
     const cartForm = document.querySelector('.cart-form')
     const inputProductQuantity = document.getElementById('product__quantity') 
-    const productSlider = document.querySelector('.product__slider')
     const cartProducts = document.querySelector('.cart-section__products')
     const emptyMsg = document.querySelector('.empty-msg')
     const cartBody = document.querySelector('.cart-section__body')
+    const originalProductSlider = document.querySelector('.product__slider')
     const lightbox = document.querySelector('.lightbox')
-    
-    let productIndex = 0
+
+    var modalLightbox = null
+    var productIndex = 0
     inputProductQuantity.value = 0
     manageItemsCounter(cart.getCartSize())
     updateCartItems()
-    autoSelectFirstThumbItem()
+    adjustAriaAttributesOnBtnMenu()
+    initProductSliders()
+    
     navBtn.addEventListener('click', toggleMenu)
     mainNavCloseBtn.addEventListener('click',toggleMenu)
     btnCart.addEventListener('click', toggleCart)
     btnUser.addEventListener('click', toggleBtnCheckout)
-    productSlider.addEventListener('click', manageProductClicks)
     cartForm.addEventListener('click', manageFormClicks)
     cartSection.addEventListener('click', manageCartClicks)
-    lightbox.addEventListener('click', manageProductClicks)
     
+    function initProductSliders(){
+      updateLightboxContent()
+      document.querySelectorAll('.product__slider').forEach( element => {
+        element.addEventListener('click', manageProductClicks)
+        element.addEventListener('keydown', manageProductClicks)
+      })
+      autoSelectFirstThumbItem()
+    }
+    function updateLightboxContent(){
+      const clonedElement = originalProductSlider.cloneNode(true)
+      clonedElement.classList.add('--lightbox-active')
+      lightbox.appendChild(clonedElement)
+    }
+    function adjustAriaAttributesOnBtnMenu(){
+      if(window.matchMedia(`(min-width: 992px)`).matches){
+        navBtn.removeAttribute('aria-controls')
+        navBtn.removeAttribute('aria-expanded')
+      }
+    }
     function autoSelectFirstThumbItem(){
-      document.querySelectorAll(`[data-thumb-index='0']`).forEach( element => {
-        const thumbItem = element.closest('.thumb-item__btn')
-        let flagOtherAlreadySelected = false
-        document.querySelectorAll('.thumb-item__btn').forEach( otherThumb => {
-          if(otherThumb.classList.contains('--selected')){
-            flagOtherAlreadySelected = true
+      document.querySelectorAll('.product__thumbs').forEach( listThumbs => {
+        let hasThumbSelected = false
+        Array.from(listThumbs).forEach( element => {
+          if(element.querySelector('.thumb-item__btn').classList.contains('--selected')){
+            hasThumbSelected = true
           }
         })
-        if(flagOtherAlreadySelected === false){
-          thumbItem.classList.add('--selected')
+        if(hasThumbSelected === false){
+          listThumbs.children[0].querySelector('.thumb-item__btn').classList.add('--selected')
         }
       })
     }
@@ -51,16 +71,22 @@
     function toggleMenu(){
       toggleDocumentOverflow()
       mainNav.classList.toggle('active')
-      mainNav.ariaHidden = false
-      mainNav.ariaExpanded = true
       mainNavContentContainer.classList.toggle('active')
+      if(mainNav.classList.contains('active')){
+        navBtn.setAttribute('aria-expanded', true)
+      }
+      else{
+        navBtn.setAttribute('aria-expanded', false)
+      }
     }
     function toggleCart(){
       if(cartSection.classList.contains('active')){
         cartSection.style.display = "none"
+        btnCart.setAttribute('aria-expanded', false)
       }
       else{
         cartSection.style.display = "block"
+        btnCart.setAttribute('aria-expanded', true)
       }
       setTimeout(() => cartSection.classList.toggle('active'), 100)
       btnCart.classList.toggle('--active')
@@ -99,7 +125,7 @@
               inputProductQuantity.value = 0
             }
             else{
-              const productId = productSlider.querySelector('.image-box__src').getAttribute('data-product-id')
+              const productId = originalProductSlider.querySelector('.image-box__src').getAttribute('data-product-id')
               const thumbImageURL = `images/image-product-${productId.split('-')[2]}-thumbnail.jpg`
               const productName = document.querySelector('.product__name').textContent.trim()
               let discountPrice = document.querySelector('.discount-price__value').textContent.trim()
@@ -129,60 +155,54 @@
         
       }
     }
+    
     function manageProductClicks(event){
       let element = event.target
-      console.log('here element: ', element, ' event key: ', event.key)
-      if(element.matches('.icon-close, .product__slider___btn-close-lightbox') || event.key === "Escape"){
-        setTimeout(() => lightbox.style.display = '', 200)
-        toggleDocumentOverflow()
-        lightbox.children[0].remove()
-        document.body.removeEventListener('keydown', manageProductClicks)
+      let key = event.key
+      const actionCondition = (event.type === "keydown" && key === "Enter") || event.type === "click"
+      // console.log('el: ', element, ' - key: ', key)
+
+      if(element.matches(`.image-box__src[tabindex='0']`) && window.matchMedia(`(min-width: 992px)`).matches && actionCondition){
+        event.preventDefault()
+        zoomProductImage(event)
       }
-      else if(element.matches(`.icon, [class*='Image']`) || event.key === "ArrowRight" || event.key === "ArrowLeft"){
-        if(element.matches('.icon')){
-          element = element.closest('button')
+      else if(actionCondition){
+        event.preventDefault()
+        if(element.matches(`[data-thumb-index], .thumb-item__btn`)){
+          const localProductSlider = element.closest(`.product__slider`)
+          const product = localProductSlider.querySelector('.image-box__src')
+          if(element.classList.contains('thumb-item__btn')){
+            element = element.querySelector('[data-thumb-index]')
+          }
+          productIndex = element.getAttribute('data-thumb-index')
+          slideProductImage('', product.getAttribute('data-product-id'), product)
         }
-        if(event.key){
-          element = element.querySelector('.lightbox .image-box__src')
+        else if(element.matches(`.icon-previous, .icon-next, .btn-previousImage, .btn-nextImage`)){
+          console.log('arrow to change image')
+          if(element.classList.contains(`icon`)){
+            element = element.closest('button')
+          }
+          console.log('element: ', element)
+          const product = element.closest('.image-box').querySelector('.image-box__src')
+          let operation = element.classList.contains('btn-nextImage') ? '+' : '-'
+          slideProductImage(operation, product.getAttribute('data-product-id'), product)
         }
-        else{
-          element = element.parentElement.querySelector('.image-box__src')
-        }
-        let product = element.getAttribute('data-product-id')
-        let operation = element.classList.contains('btn-nextImage') || event.key === "ArrowRight" ? '+' : '-'
-        slideProductImage(operation, product, element)
+        else if(element.matches(`.icon-close, .product__slider___btn-close-lightbox`)){
+          setTimeout(() => {
+            lightbox.style.display = ''
+            modalLightbox.removeEvents()
+          })
+        }        
       }
-      else if(element.matches('[data-thumb-index], .thumb-item__btn')){
-        console.log('element: ', element)
-        const localProductSlider = element.closest('.product__slider')
-        localProductSlider.querySelectorAll('.thumb-item__btn').forEach( item=> item.classList.remove('--selected'))
-        let product = localProductSlider.querySelector('.image-box__src')
-        if(element.classList.contains('thumb-item__btn')){
-          element.classList.add('--selected')
-          element = element.querySelector('[data-thumb-index]')
-        }
-        else{
-           element.parentElement.classList.add('--selected')
-        }
-        productIndex = element.getAttribute('data-thumb-index')
-        slideProductImage('',product.getAttribute('data-product-id'), product)
-      }
-      else if(!getDocumentOverflowStatus() && element.matches('.image-box__src') && window.matchMedia(`(min-width: 992px)`).matches){
-        toggleDocumentOverflow()
-        zoomProductImage(element)
-        autoSelectFirstThumbItem()
-      }
+      
     }
-    function getDocumentOverflowStatus(){
-      return document.body.classList.contains('--overflow-hidden')
-    }
-    function zoomProductImage(image){
-      const productSlider = image.closest('.product__slider')
-      const clonedElement = productSlider.cloneNode(true)
-      document.body.addEventListener('keydown', manageProductClicks)
-      clonedElement.classList.add('--lightbox-active')
-      lightbox.appendChild(clonedElement)
-      setTimeout(() => lightbox.style.display = 'flex', 200)
+    
+    function zoomProductImage(){
+      lightbox.classList.add('--active')
+      setTimeout(() => {
+        lightbox.style.display = 'flex'
+        modalLightbox = new Modal(lightbox)
+      }, 200)
     }
     function slideProductImage(operator, productId, image){
       let productImagesLength = products.get(productId).length - 1
@@ -192,6 +212,11 @@
       else if(operator === '-'){
         productIndex = productIndex > 0 ? productIndex - 1 : productImagesLength
       }
+      const localProductSlider = image.closest('.product__slider')
+      localProductSlider.querySelector('.thumb-item__btn.--selected').classList.remove('--selected')
+      let elementToSelect = localProductSlider.querySelector(`[data-thumb-index='${productIndex}']`)
+      elementToSelect.closest('.thumb-item__btn').classList.add('--selected')
+      
       let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
       image.classList.add('--changed')
       setTimeout(() => {
@@ -270,6 +295,10 @@
       `
       li.innerHTML = liContent
       return li
+    }
+
+    return {
+      toggleDocumentOverflow
     }
   }
 )()

@@ -25,11 +25,6 @@ html.--overflow-hidden,
 body.--overflow-hidden{
     overflow: hidden;
 }
-img:focus,
-button:focus,
-a:focus{
-    outline: solid 2px red;
-}
 button{ cursor: pointer; }
 h1,h2,h3, h4, p, ul{ 
     margin: 0;
@@ -53,12 +48,11 @@ img{
 }
 .lightbox{
     position: absolute;
-    top: 0%;
-    left: 0%;
+    inset: 0%;
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 6;
+    z-index: 7;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,.8);
@@ -66,30 +60,47 @@ img{
 .icon{
     display: inline-block;
     mask-size: contain;
+        -webkit-mask-size: contain;
     mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
     mask-position: center;
+        -webkit-mask-position: center;
     background-color: #69707D;
 }
 .icon-cart{
     mask-image: url(../images/icon-cart.svg);
+        -webkit-mask-image: url(../images/icon-cart.svg);
     min-width: 22px;
     min-height: 22px;
 }
 .icon-close{
     mask-image: url(../images/icon-close.svg);
+        -webkit-mask-image: url(../images/icon-close.svg);
     min-width: 17px;
     min-height: 17px;
 }
-.icon-previous{ mask-image: url(../images/icon-previous.svg); }
-.icon-next{ mask-image: url(../images/icon-next.svg); }
+.icon-previous{ 
+    mask-image: url(../images/icon-previous.svg); 
+        -webkit-mask-image: url(../images/icon-previous.svg); 
+}
+.icon-next{ 
+    mask-image: url(../images/icon-next.svg); 
+        -webkit-mask-image: url(../images/icon-next.svg); 
+}
 .icon-previous,
 .icon-next{
     background-color: black;
     min-width: 15px;
     min-height: 15px;
 }
-.icon-minus{ mask-image: url(../images/icon-minus.svg) }
-.icon-plus{ mask-image: url(../images/icon-plus.svg) }
+.icon-minus{ 
+    mask-image: url(../images/icon-minus.svg); 
+        -webkit-mask-image: url(../images/icon-minus.svg); 
+}
+.icon-plus{ 
+    mask-image: url(../images/icon-plus.svg);
+        -webkit-mask-image: url(../images/icon-plus.svg);
+}
 .icon-minus,
 .icon-plus{
     min-width: 12px;
@@ -101,6 +112,7 @@ img{
     min-height: 22px;
     background-color: white;
 }
+
 .top-header{
     position: relative;
     display: flex;
@@ -454,6 +466,7 @@ img{
     border-radius: 5px;
 }
 .product__price .full-price{
+    position: relative;
     width: max-content;
     text-decoration: line-through;
     color: var(--grayish-blue-clr);
@@ -485,7 +498,10 @@ img{
     border: none;
     background-color: inherit;
     appearance: textfield;
-        -webkit-appearance: textfield;
+}
+#product__quantity::-webkit-outer-spin-button,
+#product__quantity::-webkit-inner-spin-button{
+    -webkit-appearance: none;
 }
 #product__quantity:focus{ outline: none; }
 .cart-form__add-btn{
@@ -513,6 +529,22 @@ img{
 }
 
 @media (hover:hover) and (pointer:fine){
+    /* Some focus effects in case the browser doesn't support focus-visible */
+    .top-header__btn-cart:focus,
+    .company-name:focus, 
+    .product__title:focus,
+    .product__description:focus, 
+    .discount-price__value:focus,
+    .discount-price__discount:focus,
+    .product__price .full-price p:focus,
+    .btn-changeValue.minus-item:focus,
+    .btn-changeValue.plus-item:focus,
+    #product__quantity:focus,
+    .cart-form__add-btn:focus{
+        outline: solid 2px var(--orange-clr);
+        outline-offset: 2px;
+    }
+    
     .user-container:focus img,
     .user-container:hover img{
         outline: solid 2px var(--orange-clr);
@@ -523,7 +555,10 @@ img{
     .btn-changeValue:focus .icon{
         opacity: .7;
     }
-    .thumb-item__btn:hover img{ opacity: .5; }
+    .thumb-item__btn:hover img,
+    .thumb-item__btn:focus img{ 
+        opacity: .5; 
+    }
     .btn-nextImage:hover .icon,
     .btn-nextImage:focus .icon,
     .btn-previousImage:hover .icon,
@@ -532,8 +567,48 @@ img{
     .product__slider___btn-close-lightbox:focus .icon{
         background-color: var(--orange-clr);
     }
-    .nav-item:hover{ color: black; }
-    .nav-item:hover::after{ background-color: var(--orange-clr); }
+    .nav-item:hover,
+    .nav-item:focus{ 
+        color: black; 
+        outline: none;
+    }
+    .nav-item:hover::after, 
+    .nav-item:focus::after{ 
+        background-color: var(--orange-clr); 
+    }
+
+    @supports selector(:focus-visible){
+        .image-box__src:focus-visible{ opacity: .7; }
+        .user-container:focus-visible img{ outline: solid 2px var(--orange-clr); }
+        .btn-changeValue:focus-visible .icon{ opacity: .7; }
+        .btn-nextImage:focus-visible .icon,
+        .product__slider___btn-close-lightbox:focus-visible .icon{
+            background-color: var(--orange-clr);
+        }
+        .thumb-item__btn:focus-visible img{ opacity: .5; }
+
+        .top-header__btn-cart:focus-visible,
+        .company-name:focus-visible, 
+        .product__title:focus-visible,
+        .product__description:focus-visible, 
+        .discount-price__value:focus-visible,
+        .discount-price__discount:focus-visible,
+        .product__price .full-price p:focus-visible,
+        .btn-changeValue.minus-item:focus-visible,
+        .btn-changeValue.plus-item:focus-visible,
+        #product__quantity:focus-visible,
+        .cart-form__add-btn:focus-visible{
+            outline: solid 2px var(--orange-clr);
+            outline-offset: 2px;
+        }
+        
+        .nav-item:focus-visible{ 
+            color: black; 
+            outline: none;
+        }
+        .nav-item:focus-visible::after{ background-color: var(--orange-clr); }
+    }
+    
 }
 @media screen and (min-width: 455px){ 
     .product__slider .image-box,
