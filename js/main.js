@@ -130,8 +130,12 @@ const mainJs = (
               const productName = document.querySelector('.product__name').textContent.trim()
               let discountPrice = document.querySelector('.discount-price__value').textContent.trim()
               discountPrice = discountPrice.replace('$', '')
+              discountPrice = discountPrice.replace('dollars', '')
+              discountPrice = discountPrice.trim()
               let totalPrice = document.querySelector('.full-price').textContent.trim()
               totalPrice = totalPrice.replace('$', '')
+              totalPrice = totalPrice.replace('dollars', '')
+              totalPrice = totalPrice.trim()
               const newItem = cart.addNewItem(productId, quantity, thumbImageURL, productName, discountPrice, totalPrice)
               manageItemsCounter(cart.getCartSize())
               updateCartItems([newItem])
@@ -160,8 +164,9 @@ const mainJs = (
       let element = event.target
       let key = event.key
       const actionCondition = (event.type === "keydown" && key === "Enter") || event.type === "click"
-      // console.log('el: ', element, ' - key: ', key)
-
+      if(element.matches(`p`)){
+        element = element.parentElement
+      }
       if(element.matches(`.image-box__src[tabindex='0']`) && window.matchMedia(`(min-width: 992px)`).matches && actionCondition){
         event.preventDefault()
         zoomProductImage(event)
@@ -174,15 +179,13 @@ const mainJs = (
           if(element.classList.contains('thumb-item__btn')){
             element = element.querySelector('[data-thumb-index]')
           }
-          productIndex = element.getAttribute('data-thumb-index')
+          productIndex = parseInt(element.getAttribute('data-thumb-index'))
           slideProductImage('', product.getAttribute('data-product-id'), product)
         }
         else if(element.matches(`.icon-previous, .icon-next, .btn-previousImage, .btn-nextImage`)){
-          console.log('arrow to change image')
           if(element.classList.contains(`icon`)){
             element = element.closest('button')
           }
-          console.log('element: ', element)
           const product = element.closest('.image-box').querySelector('.image-box__src')
           let operation = element.classList.contains('btn-nextImage') ? '+' : '-'
           slideProductImage(operation, product.getAttribute('data-product-id'), product)
@@ -215,7 +218,7 @@ const mainJs = (
       const localProductSlider = image.closest('.product__slider')
       localProductSlider.querySelector('.thumb-item__btn.--selected').classList.remove('--selected')
       let elementToSelect = localProductSlider.querySelector(`[data-thumb-index='${productIndex}']`)
-      elementToSelect.closest('.thumb-item__btn').classList.add('--selected')
+      elementToSelect.closest('button').classList.add('--selected')
       
       let {full_img_url: fullImgURL} = products.get(productId)[productIndex]
       image.classList.add('--changed')
@@ -272,15 +275,18 @@ const mainJs = (
           <div class="list-item__abstract">
             <h4 class="title">${item.name}</h4>
               <div class="price-calculation">
-                <div class="price-calculation__value">
+                <p class="price-calculation__value">
                   &dollar;
-                  <span class="value__span">${item.discount_price}</span>
-                  <span class="sr-only">dollars</span>
+                  <span class="value__span">
+                    ${item.discount_price}
+                    <span class="sr-only">dollars</span>
+                  </span>
                   <span class="sr-only">by</span>
                   <span aria-hidden="true">x</span>
                   <span class="quantity">${item.quantity}</span>
-                </div>
+                </p>
               </div>
+              
               <p class="price-calculation__final-price">
                 &dollar; 
                 <span class="final-price__span">${(item.discount_price * item.quantity).toFixed(2)}</span>
@@ -289,7 +295,7 @@ const mainJs = (
           </div>
           <button type="button" class="btn-del-product">
             <span class="sr-only">Delete this product</span>
-            <img src="images/icon-delete.svg" alt="">
+            <img src="images/icon-delete.svg" alt="" role="presentation">
           </button>
         </a>
       `

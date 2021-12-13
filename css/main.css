@@ -1,17 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
 
 :root{
-    /* --lightning-orange: 55%; */
-    --saturation: 100%;
-    --orange-clr: hsl(26, var(--saturation), 55%);
+    --orange-clr: hsl(26, 100%, 55%);
     --pale-orange-clr: hsl(25, 100%, 94%);
     --very-dark-blue-clr: hsl(220, 13%, 13%);
     --dark-grayish-blue-clr: hsl(219, 9%, 45%);
     --grayish-blue-clr: hsl(220, 14%, 75%);
     --light-grayish-blue-clr: hsl(223, 64%, 98%);
     --white-clr: hsl(0, 0%, 100%);
-    --opacity-black-clr: 0%;
-    --black-clr: hsl(0, 0%, var(--opacity-black-clr));
+    --black-clr: hsl(0, 0%, 0%);
 }
 html{ position: relative; }
 body{
@@ -527,88 +524,44 @@ img{
     padding: .5em 1em;
     border: none;
 }
+.cart-form__add-btn:focus{
+    outline: solid 2px var(--orange-clr);
+    outline-offset: 2px;
+}
+.user-container:focus img{ outline: solid 2px var(--orange-clr); }
+.cart-form__add-btn:focus,
+.btn-changeValue:focus .icon{
+    opacity: .7;
+}
+.thumb-item__btn:focus img{ opacity: .5; }
+.btn-nextImage:focus .icon,
+.btn-previousImage:focus .icon,
+.product__slider___btn-close-lightbox:focus .icon{
+    background-color: var(--orange-clr);
+}
+.nav-item:focus{ 
+    color: black; 
+    outline: none;
+}
+.nav-item:focus::after{ background-color: var(--orange-clr); }
 
 @media (hover:hover) and (pointer:fine){
-    /* Some focus effects in case the browser doesn't support focus-visible */
-    .top-header__btn-cart:focus,
-    .company-name:focus, 
-    .product__title:focus,
-    .product__description:focus, 
-    .discount-price__value:focus,
-    .discount-price__discount:focus,
-    .product__price .full-price p:focus,
-    .btn-changeValue.minus-item:focus,
-    .btn-changeValue.plus-item:focus,
-    #product__quantity:focus,
-    .cart-form__add-btn:focus{
-        outline: solid 2px var(--orange-clr);
-        outline-offset: 2px;
-    }
-    
-    .user-container:focus img,
-    .user-container:hover img{
-        outline: solid 2px var(--orange-clr);
-    }
+    .user-container:hover img{ outline: solid 2px var(--orange-clr); }
     .cart-form__add-btn:hover,
-    .cart-form__add-btn:focus,
-    .btn-changeValue:hover .icon,
-    .btn-changeValue:focus .icon{
+    .btn-changeValue:hover .icon{
         opacity: .7;
     }
-    .thumb-item__btn:hover img,
-    .thumb-item__btn:focus img{ 
-        opacity: .5; 
-    }
+    .thumb-item__btn:hover img{ opacity: .5; }
     .btn-nextImage:hover .icon,
-    .btn-nextImage:focus .icon,
     .btn-previousImage:hover .icon,
-    .btn-previousImage:focus .icon,
-    .product__slider___btn-close-lightbox:hover .icon,
-    .product__slider___btn-close-lightbox:focus .icon{
+    .product__slider___btn-close-lightbox:hover .icon{
         background-color: var(--orange-clr);
     }
-    .nav-item:hover,
-    .nav-item:focus{ 
+    .nav-item:hover{ 
         color: black; 
         outline: none;
     }
-    .nav-item:hover::after, 
-    .nav-item:focus::after{ 
-        background-color: var(--orange-clr); 
-    }
-
-    @supports selector(:focus-visible){
-        .image-box__src:focus-visible{ opacity: .7; }
-        .user-container:focus-visible img{ outline: solid 2px var(--orange-clr); }
-        .btn-changeValue:focus-visible .icon{ opacity: .7; }
-        .btn-nextImage:focus-visible .icon,
-        .product__slider___btn-close-lightbox:focus-visible .icon{
-            background-color: var(--orange-clr);
-        }
-        .thumb-item__btn:focus-visible img{ opacity: .5; }
-
-        .top-header__btn-cart:focus-visible,
-        .company-name:focus-visible, 
-        .product__title:focus-visible,
-        .product__description:focus-visible, 
-        .discount-price__value:focus-visible,
-        .discount-price__discount:focus-visible,
-        .product__price .full-price p:focus-visible,
-        .btn-changeValue.minus-item:focus-visible,
-        .btn-changeValue.plus-item:focus-visible,
-        #product__quantity:focus-visible,
-        .cart-form__add-btn:focus-visible{
-            outline: solid 2px var(--orange-clr);
-            outline-offset: 2px;
-        }
-        
-        .nav-item:focus-visible{ 
-            color: black; 
-            outline: none;
-        }
-        .nav-item:focus-visible::after{ background-color: var(--orange-clr); }
-    }
-    
+    .nav-item:hover::after{ background-color: var(--orange-clr); }
 }
 @media screen and (min-width: 455px){ 
     .product__slider .image-box,

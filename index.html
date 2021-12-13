@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
   <meta name="author" content="Diego Luiz">
   <meta name="description" content="E-commerce product page challenge by FrontEnd Mentor">
+  <meta name="keywords" content="html, css, javascript, e-commerce, product, page, challenge, frontend mentor">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -19,7 +20,7 @@
     <div class="top-header__left">
       <button class="nav-btn" type="button" aria-controls="main-nav" aria-expanded="false">
         <p class="sr-only">Menu button</p>
-        <img src="images/icon-menu.svg" alt="" role="representation">
+        <img src="images/icon-menu.svg" alt="" role="presentation">
       </button>
       <h1 class="logo">
         <a href="index.html" class="invisible" tabindex="0" >sneakers</a>
@@ -126,15 +127,19 @@
           These low-profile sneakers are your perfect casual wear companion. Featuring a 
           durable rubber outer sole, they’ll withstand everything the weather can offer.
         </p>
-        <div class="product__price" aria-label="Product price informations">
+        <div class="product__price">
           <div class="discount-price">
-            <p class="discount-price__value" tabindex="0" aria-label="price with discount">&dollar;125.00</p>
-            <p class="sr-only">dollars</p>
+            <p class="discount-price__value" tabindex="0" aria-label="price with discount">
+              &dollar;125.00
+              <span class="sr-only">dollars</span>
+            </p>
             <p class="discount-price__discount" tabindex="0" aria-label="price discount">50%</p>
           </div>
           <div class="full-price">
-            <p tabindex="0" aria-label="price without discount">&dollar;250.00</p>
-            <p class="sr-only">dollars</p>
+            <p tabindex="0" aria-label="price without discount">
+              &dollar;250.00
+              <span class="sr-only">dollars</span>
+            </p>
           </div>
         </div>
         
