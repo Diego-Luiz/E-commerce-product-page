@@ -10,11 +10,11 @@
     --white-clr: hsl(0, 0%, 100%);
     --black-clr: hsl(0, 0%, 0%);
 }
-html{ position: relative; }
 body{
     font-family: 'Kumbh Sans', sans-serif;
 }
 html, body{
+    position: relative;
     min-height: 100%;
     min-width: 100%;
 }
@@ -111,7 +111,6 @@ img{
 }
 
 .top-header{
-    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -121,7 +120,6 @@ img{
 .top-header__left{ overflow-y: visible;}
 .top-header__left,
 .top-header__right{
-    position: relative;
     display: flex;
     align-items: center;
 }
@@ -173,12 +171,11 @@ img{
 }
 .top-header__left .main-nav{
     position: absolute;
-    top: -30%;
-    left: -7%;
+    inset: 0%;
     z-index: 5;
     transform: translateX(-200%);
-    width: 101vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0,0,0,.7);
 }
 
@@ -225,7 +222,7 @@ img{
 .cart-section{
     display: none;
     position: absolute;
-    top: 115%;
+    top: 10%;
     left: 50%;
     right: 50%;
     transform: translateX(-50%);
@@ -233,7 +230,7 @@ img{
     opacity: 0;
     width: 95%;
     min-width: 300px;
-    max-width: 425px;
+    max-width: 400px;
     background: var(--white-clr);
     border-radius: 10px;
     box-shadow: 0 15px 15px 5px rgba(0,0,0,.2); 
@@ -710,10 +707,9 @@ img{
         display: none;
     }
     .cart-section{
-        top: 80%;
         right: 0%;
-        left: calc(100% - 425px + 3em);
-        transform: none;
+        left: 0%;
+        transform: translateX(calc(100vw - 400px - 3em));
     }
     .product{
         display: grid;
