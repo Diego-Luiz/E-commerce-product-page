@@ -27,7 +27,7 @@ const cart = (
     function loadAllItems(){
       const items = []
       let sessionStorageLength = sessionStorage.length
-      for(let i = 0; i < sessionStorageLength; i++){
+      for(let i = 0; i <= sessionStorageLength; i++){
         let item = sessionStorage.getItem(`item-cart-${i}`)
         if(item !== null){
           item = JSON.parse(item)
