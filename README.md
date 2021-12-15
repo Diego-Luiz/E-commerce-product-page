@@ -35,7 +35,7 @@ It's an e-commerce product web page, you can add the item (autumn sneakers) to t
 
 ## 🛠️ How to run the project <a name="howtoruntheproject"></a>
 - You can download or clone the project, once you have the files you'll need a server to run the application. You can use the *live server* from visual studio code, for example. The main file is the ```index.html```
-- You can access the [live site]()
+- You can access the [live site](https://diego-luiz.github.io/E-commerce-product-page/)
 
 ## Screenshots - Mobile <a name="screenshotsmobile"></a> 📱
 <table align="center">
