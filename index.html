@@ -19,7 +19,7 @@
   <header class="top-header">
     <div class="top-header__left">
       <button class="nav-btn" type="button" aria-controls="main-nav" aria-expanded="false">
-        <p class="sr-only">Menu button</p>
+        <span class="sr-only">Menu button</span>
         <img src="images/icon-menu.svg" alt="" role="presentation">
       </button>
       <h1 class="logo">
@@ -28,7 +28,7 @@
         <nav class="main-nav" id="main-nav" aria-label="Main menu">
           <div class="main-nav__content-container">
             <button class="main-nav__close-btn" type="button">
-              <p class="sr-only">Close menu</p>
+              <span class="sr-only">Close menu</span>
               <span class="icon icon-close" aria-hidden="true"></span>
             </button>
             <ul class="main-nav__links">
@@ -53,7 +53,7 @@
     </div>
     <div class="top-header__right">
       <button class="top-header__btn-cart" type="button" aria-controls="cart-section" aria-expanded="false">
-        <p class="sr-only">Button cart</p>
+        <span class="sr-only">Button cart</span>
         <span class="icon icon-cart" aria-hidden="true"></span>
         <p class="items-quantity">
           <span class="value">0</span><span class="sr-only">items</span>
@@ -78,16 +78,16 @@
     <article class="product">
       <section class="product__slider default-container" aria-label="Product preview">
         <button type="button" class="product__slider___btn-close-lightbox">
-          <p class="sr-only">Close lightbox</p>
+          <span class="sr-only">Close lightbox</span>
           <span class="icon icon-close" aria-hidden="true"></span>
         </button>  
         <div class="image-box" aria-label="Product preview" role="region">
           <button type="button" class="btn-previousImage">
-            <p class="sr-only">Previous Image</p>
+            <span class="sr-only">Previous Image</span>
             <span class="icon icon-previous" aria-hidden="true"></span>
           </button>
           <button type="button" class="btn-nextImage">
-            <p class="sr-only">Next Image</p>
+            <span class="sr-only">Next Image</span>
             <span class="icon icon-next" aria-hidden="true"></span>
           </button>
           <img src="images/image-product-1.jpg" alt="Brown and white sneaker" class="image-box__src" data-product-id="item-cart-1" tabindex="0" aria-controls="lightbox" aria-expanded="false">
@@ -122,20 +122,20 @@
           <p class="product__name" tabindex="0">Autumn Limited Edition Sneakers</p>
           <h3 class="product__title" tabindex="0">Fall Limited Edition Sneakers</h3>
         </header>
-        <p class="product__description" tabindex="0" aria-label="Product description">
+        <p class="product__description" tabindex="0">
           These low-profile sneakers are your perfect casual wear companion. Featuring a 
           durable rubber outer sole, they’ll withstand everything the weather can offer.
         </p>
         <div class="product__price">
           <div class="discount-price">
-            <p class="discount-price__value" tabindex="0" aria-label="price with discount">
+            <p class="discount-price__value" tabindex="0">
               &dollar;125.00
               <span class="sr-only">dollars</span>
             </p>
-            <p class="discount-price__discount" tabindex="0" aria-label="price discount">50%</p>
+            <p class="discount-price__discount" tabindex="0">50%</p>
           </div>
           <div class="full-price">
-            <p tabindex="0" aria-label="price without discount">
+            <p tabindex="0">
               &dollar;250.00
               <span class="sr-only">dollars</span>
             </p>
@@ -145,13 +145,13 @@
         <form action="#" class="cart-form">
           <div class="cart-form__input-container" aria-label="Define the product quantity">
             <button type="button" class="btn-changeValue minus-item">
-              <p class="sr-only">Minus one item</p>
+              <span class="sr-only">Minus one item</span>
               <span class="icon icon-minus" aria-hidden="true"></span>
             </button>
             <label for="product__quantity" class="sr-only">Set the quantity manually</label>
             <input type="number" min="0" value="0" id="product__quantity">
             <button type="button" class="btn-changeValue plus-item">
-              <p class="sr-only">Plus one item</p>
+              <span class="sr-only">Plus one item</span>
               <span class="icon icon-plus" aria-hidden="true"></span>
             </button>
           </div>
